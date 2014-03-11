@@ -30,21 +30,9 @@
 	$namespace = ( isset( $_GET['namespace'] ) && $_GET["namespace"] != "" ) ? htmlspecialchars( $_GET['namespace'] ) : 10; //10 is template namespace
 	$templateName = ( isset( $_GET['name'] ) && $_GET["name"] != "" ) ? str_replace( "_", " ", htmlspecialchars( $_GET['name'], ENT_QUOTES ) ) : '';
 
-	if( isset( $_GET['lang'] ) ){
-		$template = str_replace( "Template:", "", $_GET["name"] );
-		$template = mb_strtoupper( mb_substr( $template, 0, 1 ) ) . mb_substr( $template, 1 ); // For Xeno
-		if( !preg_match( "/^[a-z]{2,7}$/", $language ) ) die(); // Safety precaution
-		if( !is_numeric( $namespace ) ) die(); // Safety precaution
-		$template = str_replace( " ", "_", $template );
-		//echo "<!-- Actually checking database for query '" . htmlspecialchars( mysql_real_escape_string( $template ) ) . "' -->\n";
-
-		$db = dbconnect( $language . 'wiki-p' );
-		$result = $db->query( "SELECT count(*) FROM templatelinks WHERE tl_title = '" . mysql_real_escape_string( $template ) ."' AND tl_namespace = " . mysql_real_escape_string( $namespace ) . ";" );
-		$row = $result->fetch_array();
-		$count = $row[0];
-		Counter::increment( 'templatecount/sincejune2011.txt' );
-	}
-		echo get_html( 'header', 'Template transclusion count' );
+	if( !preg_match( "/^[a-z]{2,7}$/", $language ) ) die(); // Safety precaution
+	if( !is_numeric( $namespace ) ) die(); // Safety precaution
+	echo get_html( 'header', 'Template transclusion count' );
 ?>
 		<h3><?php echo _html( 'enter-details' ); ?></h3>
 		<p><?php echo _html( 'introduction' ); ?></p>
@@ -57,6 +45,17 @@
 		</form>
 		<?php
 			if( isset( $_GET['lang'] ) ){
+				Counter::increment( 'templatecount/sincejune2011.txt' );
+
+				$templateName = str_replace( "Template:", "", $_GET["name"] );
+				$templateName = mb_strtoupper( mb_substr( $templateName, 0, 1 ) ) . mb_substr( $templateName, 1 ); // For Xeno
+				$templateName = str_replace( " ", "_", $templateName );
+				// echo "<!-- Actually checking database for query '" . htmlspecialchars( $db->real_escape_string( $templateName ) ) . "' -->\n";
+				$db = dbconnect( $language . 'wiki-p' );
+				$result = $db->query( "SELECT count(*) FROM templatelinks WHERE tl_title = '" .  $db->real_escape_string( $templateName ) ."' AND tl_namespace = " . $db->real_escape_string( $namespace ) . ";" );
+				$row = $result->fetch_array();
+				$count = $row[0];
+
 				echo "<h3>" . _html( 'transclusion-count-label' ) . "</h3>\n";
 				$result = "<p>" . _html( 'transclusion-count', array( 'variables' => array( $count ) ) );
 				if ( $count === 0 ) {
