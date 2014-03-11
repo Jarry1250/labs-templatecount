@@ -25,7 +25,6 @@
 	$oldtime = time();
 
 	$interfaceLang = $I18N->getLang();
-	if( !preg_match( "/^[a-z]{2,3}$/", $interfaceLang ) ) die(); //Safety precaution
 	$language = ( isset( $_GET['lang'] ) && $_GET["lang"] != "" ) ? htmlspecialchars( $_GET['lang'] ) : $interfaceLang;
 	$namespace = ( isset( $_GET['namespace'] ) && $_GET["namespace"] != "" ) ? htmlspecialchars( $_GET['namespace'] ) : 10; //10 is template namespace
 	$templateName = ( isset( $_GET['name'] ) && $_GET["name"] != "" ) ? str_replace( "_", " ", htmlspecialchars( $_GET['name'], ENT_QUOTES ) ) : '';
