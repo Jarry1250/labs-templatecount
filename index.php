@@ -20,7 +20,6 @@
 	ini_set( 'display_errors', 1 );
 	error_reporting( E_ALL );
 	require_once( '/data/project/jarry-common/public_html/global.php' );
-	require_once( '/data/project/jarry-common/public_html/database.php' );
 	$I18N->setDomain( 'templatecount' );
 	$oldtime = time();
 
