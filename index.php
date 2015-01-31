@@ -28,7 +28,7 @@
 	$namespace = ( isset( $_GET['namespace'] ) && $_GET["namespace"] != "" ) ? htmlspecialchars( $_GET['namespace'] ) : 10; //10 is template namespace
 	$templateName = ( isset( $_GET['name'] ) && $_GET["name"] != "" ) ? str_replace( "_", " ", htmlspecialchars( $_GET['name'], ENT_QUOTES ) ) : '';
 
-	if( !preg_match( "/^[a-z-]{2,7}$/", $language ) ) die(); // Safety precaution
+	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) die(); // Safety precaution
 	if( !is_numeric( $namespace ) ) die(); // Safety precaution
 	echo get_html( 'header', 'Template transclusion count' );
 ?>
@@ -36,7 +36,7 @@
 		<p><?php echo _html( 'introduction' ); ?></p>
 
 		<form action="index.php" method="GET">
-			<p><label for="lang"><?php echo _html( 'language-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="lang" id="lang" value="<?php echo $language; ?>" style="width:80px;" maxlength="7" required="required">.wikipedia.org<br />
+			<p><label for="lang"><?php echo _html( 'language-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="lang" id="lang" value="<?php echo $language; ?>" style="width:80px;" maxlength="8" required="required">.wikipedia.org<br />
 			<label for="namespace"><?php echo _html( 'namespace-label' ) . _g( 'colon-separator' );?>&nbsp;</label><?php echo getNamespaceSelect( $interfaceLang, $namespace ); ?><br />
 			<label for="name"><?php echo _html( 'pagename-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="name" id="name" style="width:200px;" value="<?php echo $templateName; ?>" required="required"/>
 			<input type="submit" value="<?php echo _g( 'form-submit'); ?>" /></p>
