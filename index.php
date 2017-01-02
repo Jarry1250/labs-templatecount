@@ -28,8 +28,14 @@
 	$namespace = ( isset( $_GET['namespace'] ) && $_GET["namespace"] != "" ) ? htmlspecialchars( $_GET['namespace'] ) : 10; //10 is template namespace
 	$templateName = ( isset( $_GET['name'] ) && $_GET["name"] != "" ) ? str_replace( "_", " ", htmlspecialchars( $_GET['name'], ENT_QUOTES ) ) : '';
 
-	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) die(); // Safety precaution
-	if( !is_numeric( $namespace ) ) die(); // Safety precaution
+	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) { // Safety precaution
+		echo '<b>Error:</b> Language parameter with invaid format<br>';
+		die();
+	}
+	if( !is_numeric( $namespace ) ) { // Safety precaution
+		echo '<b>Error:</b> Namespace parameter must be numerical.<br>';
+		die();
+	}
 	echo get_html( 'header', 'Template transclusion count' );
 ?>
 		<h3><?php echo _html( 'enter-details' ); ?></h3>
