@@ -29,7 +29,7 @@
 	$templateName = ( isset( $_GET['name'] ) && $_GET["name"] != "" ) ? str_replace( "_", " ", htmlspecialchars( $_GET['name'], ENT_QUOTES ) ) : '';
 
 	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) { // Safety precaution
-		echo '<b>Error:</b> Language parameter with invaid format<br>';
+		echo '<b>Error:</b> Language parameter with invaid format.<br>';
 		die();
 	}
 	if( !is_numeric( $namespace ) ) { // Safety precaution
