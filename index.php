@@ -50,7 +50,7 @@
 			<input type="submit" value="<?php echo _g( 'form-submit'); ?>" /></p>
 		</form>
 		<?php
-			if( isset( $_GET['lang'] ) ){
+			if( isset( $_GET['lang'] ) && $templateName != '' ){
 				Counter::increment( 'templatecount/sincejune2011.txt' );
 
 				$templateName = str_replace( "Template:", "", $templateName );
@@ -75,7 +75,7 @@
 		<a name="bottom" id="bottom"></a>
 		<script type="text/javascript">
 			<?php
-				if( isset( $_GET['lang'] ) && $_GET["lang"] != "" ){
+				if( isset( $_GET['lang'] ) && $_GET["lang"] != "" && $templateName != '' ){
 					echo "document.location='#bottom';\n";
 				}
 			?>
