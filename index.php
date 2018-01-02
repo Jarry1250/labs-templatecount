@@ -53,7 +53,7 @@
 			if( isset( $_GET['lang'] ) ){
 				Counter::increment( 'templatecount/sincejune2011.txt' );
 
-				$templateName = str_replace( "Template:", "", $_GET["name"] );
+				$templateName = str_replace( "Template:", "", $templateName );
 				$templateName = mb_strtoupper( mb_substr( $templateName, 0, 1 ) ) . mb_substr( $templateName, 1 ); // For Xeno
 				$templateName = str_replace( " ", "_", $templateName );
 				// echo "<!-- Actually checking database for query '" . htmlspecialchars( $db->real_escape_string( $templateName ) ) . "' -->\n";
