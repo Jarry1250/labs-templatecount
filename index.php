@@ -32,7 +32,7 @@
 	echo get_html( 'header', 'Template transclusion count' );
 
 	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) { // Safety precaution
-		echo '<b>Error:</b> Language parameter with invaid format.<br>';
+		echo '<b>Error:</b> Language parameter with invalid format.<br>';
 		die( get_html( 'footer' ) );
 	}
 	if( !is_numeric( $namespace ) ) { // Safety precaution
