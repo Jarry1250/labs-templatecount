@@ -58,7 +58,7 @@
 				$templateName = str_replace( " ", "_", $templateName );
 				// echo "<!-- Actually checking database for query '" . htmlspecialchars( $db->real_escape_string( $templateName ) ) . "' -->\n";
 				$db = dbconnect( $language . 'wiki-p' );
-				$result = $db->query( "SELECT count(*) FROM templatelinks WHERE tl_title = '" .  $db->real_escape_string( $templateName ) ."' AND tl_namespace = " . $db->real_escape_string( $namespace ) . ";" );
+				$result = $db->query( "SELECT count(*) FROM templatelinks INNER JOIN linktarget ON tl_target_id = lt_id WHERE lt_title = '" .  $db->real_escape_string( $templateName ) ."' AND lt_namespace = " . $db->real_escape_string( $namespace ) . ";" );
 				$row = $result->fetch_array();
 				$count = $row[0];
 
