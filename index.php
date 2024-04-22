@@ -31,7 +31,7 @@
 
 	echo get_html( 'header', 'Template transclusion count' );
 
-	if( !preg_match( "/^[a-z-]{2,8}$/", $language ) ) { // Safety precaution
+	if( !preg_match( "/^[a-z-]{2,10}$/", $language ) ) { // Safety precaution
 		echo '<b>Error:</b> Language parameter with invalid format.<br>';
 		die( get_html( 'footer' ) );
 	}
@@ -44,7 +44,7 @@
 		<p><?php echo _html( 'introduction' ); ?></p>
 
 		<form action="index.php" method="GET">
-			<p><label for="lang"><?php echo _html( 'language-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="lang" id="lang" value="<?php echo $language; ?>" style="width:80px;" maxlength="8" required="required">.wikipedia.org<br />
+			<p><label for="lang"><?php echo _html( 'language-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="lang" id="lang" value="<?php echo $language; ?>" style="width:80px;" maxlength="10" required="required">.wikipedia.org<br />
 			<label for="namespace"><?php echo _html( 'namespace-label' ) . _g( 'colon-separator' );?>&nbsp;</label><?php echo getNamespaceSelect( $interfaceLang, $namespace ); ?><br />
 			<label for="name"><?php echo _html( 'pagename-label' ) . _g( 'colon-separator' );?>&nbsp;</label><input type="text" name="name" id="name" style="width:200px;" value="<?php echo $templateName; ?>" required="required"/>
 			<input type="submit" value="<?php echo _g( 'form-submit'); ?>" /></p>
