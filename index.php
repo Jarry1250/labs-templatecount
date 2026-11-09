@@ -57,7 +57,15 @@
 				$templateName = mb_strtoupper( mb_substr( $templateName, 0, 1 ) ) . mb_substr( $templateName, 1 ); // For Xeno
 				$templateName = str_replace( " ", "_", $templateName );
 				// echo "<!-- Actually checking database for query '" . htmlspecialchars( $db->real_escape_string( $templateName ) ) . "' -->\n";
-				$db = dbconnect( $language . 'wiki-p' );
+				if( $language === 'commons' ) {
+					// Commons' links tables moved to the x4 cluster in September 2026 and were dropped from s4 on the replicas.
+					// See https://wikitech.wikimedia.org/wiki/News/2026_Commons_links_tables_database_split
+					$mycnf = parse_ini_file( '/data/project/templatecount/replica.my.cnf' );
+					$db = new mysqli( 'links.commonswiki.web.db.svc.wikimedia.cloud', $mycnf['user'], $mycnf['password'], 'commonswiki_p' );
+					unset( $mycnf );
+				} else {
+					$db = dbconnect( $language . 'wiki-p' );
+				}
 				$result = $db->query( "SELECT count(*) FROM templatelinks INNER JOIN linktarget ON tl_target_id = lt_id WHERE lt_title = '" .  $db->real_escape_string( $templateName ) ."' AND lt_namespace = " . $db->real_escape_string( $namespace ) . ";" );
 				$row = $result->fetch_array();
 				$count = $row[0];
