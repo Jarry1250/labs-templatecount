@@ -57,7 +57,8 @@
 				$templateName = mb_strtoupper( mb_substr( $templateName, 0, 1 ) ) . mb_substr( $templateName, 1 ); // For Xeno
 				$templateName = str_replace( " ", "_", $templateName );
 				// echo "<!-- Actually checking database for query '" . htmlspecialchars( $db->real_escape_string( $templateName ) ) . "' -->\n";
-				$db = dbconnect( $language . 'wiki-p' );
+				$extension = ( $language === 'commons' ) ? 'links' : '';
+				$db = dbconnect( $language . 'wiki-p', false, $extension );
 				$result = $db->query( "SELECT count(*) FROM templatelinks INNER JOIN linktarget ON tl_target_id = lt_id WHERE lt_title = '" .  $db->real_escape_string( $templateName ) ."' AND lt_namespace = " . $db->real_escape_string( $namespace ) . ";" );
 				$row = $result->fetch_array();
 				$count = $row[0];
